@@ -1,0 +1,30 @@
+generated: '2026-07-17'
+method: probed
+source: live HTTP probes of 1mind hosts
+note: No .well-known discovery documents are published. llms.txt IS published (saved
+  verbatim to llms/1mind-llms.txt) but lives at the site root, not under /.well-known.
+probes:
+- host: www.1mind.com
+  path: /.well-known/security.txt
+  status: 404
+  file: null
+- host: www.1mind.com
+  path: /.well-known/openid-configuration
+  status: 404
+  file: null
+- host: www.1mind.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  file: null
+- host: www.1mind.com
+  path: /.well-known/api-catalog
+  status: 404
+  file: null
+- host: www.1mind.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+- host: www.1mind.com
+  path: /llms.txt
+  status: 200
+  file: ../llms/1mind-llms.txt

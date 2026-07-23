@@ -1,0 +1,54 @@
+generated: '2026-07-17'
+method: searched
+source: 'https://trustcenter.1mind.com/ + https://www.1mind.com/data-transfer-impact-assessment-dtia
+  + https://www.1mind.com/llms.txt'
+name: 1mind Trust Center
+url: https://trustcenter.1mind.com/
+resources_url: https://trustcenter.1mind.com/resources
+security_contact: privacy@1mind.com
+certifications:
+- name: SOC 2 Type II
+  scope: Annual audit covering security, availability, and confidentiality
+  status: certified
+- name: ISO 27001
+  scope: Information security management system (ISMS)
+  status: certified
+- name: ISO 42001
+  scope: AI management system
+  status: certified
+data_privacy_frameworks:
+- EU-U.S. Data Privacy Framework (DPF)
+- UK-U.S. Data Bridge
+- Swiss-U.S. Data Privacy Framework
+regulatory_alignment:
+- GDPR
+- UK GDPR
+- PIPEDA (Canada)
+- Privacy Act 1988 (Australia)
+- LGPD (Brazil)
+- PDPA (Singapore)
+- Ley 25.326 (Argentina)
+- FADP (Switzerland)
+pentesting:
+- type: AI pentesting
+  standard: OWASP Top 10 for LLM & ML
+  vendor: Astra Security
+- type: Web application pentesting
+  vendor: Astra Security
+subprocessors_url: https://www.1mind.com/sub-processors
+notable_subprocessors:
+- Amazon Web Services (cloud)
+- Google Cloud Platform (cloud)
+- Anthropic (LLM provider)
+- OpenAI (transit-only LLM)
+- Ory (identity provider)
+- Twilio (communications)
+- Deepgram (speech-to-text)
+- Cartesia, Eleven Labs, Tavus, Daily.co/Pipecat, LemonSlice, Anam.AI (voice/avatar rendering)
+- LangChain (agent orchestration)
+- Temporal (workflow orchestration)
+- Ampersand (native product integrations)
+- Pinecone, Qdrant (vector databases)
+- Sentry (monitoring), Fivetran (data movement), ZoomInfo (data enrichment)
+notes: Certifications and frameworks confirmed verbatim on the 1mind DTIA page and llms.txt.
+  Trust Center portal (SafeBase-style) is JS-rendered; resources gated behind request/NDA.

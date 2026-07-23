@@ -1,0 +1,34 @@
+generated: '2026-07-17'
+method: searched
+source: https://status.1mind.com/ + https://www.1mind.com/llms.txt + https://www.1mind.com/announcements
+name: 1mind API & Platform Lifecycle
+status_page:
+  url: https://status.1mind.com/
+  provider: incident.io
+  components:
+  - name: US Region - 1mind application
+    region: US
+  - name: US Region - REST API
+    region: US
+api:
+  style: REST
+  note: A US-region REST API is monitored on the public status page; public reference
+    docs (docs.1mind.com / developer.1mind.com) are JS-rendered and not openly enumerable
+    as of this pass, and no OpenAPI was published at common well-known paths.
+versioning:
+  policy: none-published
+  note: No public API versioning or deprecation policy located.
+deprecation:
+  policy: none-published
+  sunset_header: unknown
+  note: No RFC 8594 Sunset/Deprecation header policy documented.
+release_notes:
+  url: https://www.1mind.com/announcements
+  note: Company announcements page (launches, funding, partnerships); not a dated
+    per-release API changelog.
+milestones:
+- date: '2025-11'
+  event: Public launch with $40M total funding (Series A led by Battery Ventures).
+- date: '2025-11'
+  event: Named exclusive AI successor to Drift within the Clari + Salesloft Predictive
+    Revenue System.
