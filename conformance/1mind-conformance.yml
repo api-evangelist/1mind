@@ -1,0 +1,143 @@
+generated: '2026-08-13'
+method: probed
+source: https://auth.1mind.com/.well-known/openid-configuration +
+  https://auth.1mind.com/userinfo (401 challenge) +
+  https://interaction.prd-b.1mind.com/ (404 error envelope) +
+  https://status.1mind.com/api/v2/summary.json +
+  security/1mind-trust-center.yml
+name: 1mind Standards Conformance
+summary: >-
+  Everything asserted below was observed on a live 1mind-controlled host, or is
+  a certification 1mind publishes on its own trust surface. 1mind's identity
+  layer is standards-dense; its resource API surface is undocumented, so most
+  API-shaped standards cannot be assessed either way and are recorded as
+  unknown rather than false.
+standards:
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: Authorization server at https://auth.1mind.com advertising
+    authorization_endpoint, token_endpoint, revocation_endpoint and five grant
+    types.
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns HTTP 200 with a
+    conformant metadata document (issuer, authorization_endpoint,
+    token_endpoint, jwks_uri, response_types_supported).
+- id: oidc
+  name: OpenID Connect Core 1.0
+  conforms: true
+  evidence: /.well-known/openid-configuration returns HTTP 200; issuer,
+    userinfo_endpoint, jwks_uri, id_token_signing_alg_values_supported [RS256],
+    subject_types_supported [public].
+- id: oidc-discovery
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: Discovery document served at the canonical well-known path.
+- id: rfc7636
+  name: PKCE (RFC 7636)
+  conforms: true
+  evidence: code_challenge_methods_supported includes S256 (and plain).
+- id: rfc8628
+  name: OAuth 2.0 Device Authorization Grant (RFC 8628)
+  conforms: true
+  evidence: device_authorization_endpoint present;
+    urn:ietf:params:oauth:grant-type:device_code in grant_types_supported.
+- id: rfc7009
+  name: OAuth 2.0 Token Revocation (RFC 7009)
+  conforms: true
+  evidence: revocation_endpoint https://auth.1mind.com/oauth2/revoke.
+- id: rfc6750
+  name: OAuth 2.0 Bearer Token Usage (RFC 6750)
+  conforms: true
+  evidence: 'Observed on https://auth.1mind.com/userinfo — HTTP 401 with
+    WWW-Authenticate: Bearer error="request_unauthorized", error_description=...'
+- id: rfc7523
+  name: JWT client authentication (RFC 7523)
+  conforms: true
+  evidence: token_endpoint_auth_methods_supported includes private_key_jwt.
+- id: oidc-backchannel-logout
+  name: OpenID Connect Back-Channel Logout 1.0
+  conforms: true
+  evidence: backchannel_logout_supported true;
+    backchannel_logout_session_supported true.
+- id: oidc-frontchannel-logout
+  name: OpenID Connect Front-Channel Logout 1.0
+  conforms: true
+  evidence: frontchannel_logout_supported true; end_session_endpoint present.
+- id: oid4vci
+  name: OpenID for Verifiable Credential Issuance (draft 00)
+  conforms: partial
+  evidence: credentials_endpoint_draft_00 and credentials_supported_draft_00
+    (jwt_vc_json, UserInfoCredential) are advertised. This is the Ory Hydra
+    draft implementation, not the ratified profile.
+- id: rfc9457
+  name: Problem Details for HTTP APIs (RFC 9457 / RFC 7807)
+  conforms: false
+  evidence: >-
+    The 1mind interaction API returns a custom JSON envelope
+    {status, message, description, timestamp, path} with Content-Type
+    application/json — not application/problem+json, and not the type/title/
+    status/detail/instance member set. See errors/1mind-problem-types.yml.
+- id: ratelimit-headers
+  name: RateLimit header fields for HTTP (IETF draft)
+  conforms: partial
+  evidence: >-
+    auth.1mind.com emits legacy X-RateLimit-Limit / X-RateLimit-Remaining /
+    X-RateLimit-Reset, with the limit expressed in the draft's quota-policy
+    notation ("318;w=1, 3600;w=60"). It does not emit the standard-named
+    RateLimit / RateLimit-Policy fields. See rate-limits/1mind-rate-limits.yml.
+- id: rfc8594
+  name: Sunset header (RFC 8594)
+  conforms: unknown
+  evidence: No deprecation or versioning policy is published; no Sunset or
+    Deprecation header was observed on any probed response.
+- id: openapi
+  name: OpenAPI Specification
+  conforms: false
+  evidence: >-
+    No OpenAPI is published. Probed /openapi.json, /openapi.yaml, /swagger.json,
+    /api-docs, /redoc, /v1/openapi.json across www., developer., docs., app.,
+    auth., interaction.prd-b. and api. — every hit was either 404 or the
+    *.1mind.com wildcard SPA shell. The api-reference/openapi.json in the public
+    1mindai/docs GitHub repository is the unmodified Mintlify "OpenAPI Plant
+    Store" sample (servers http://sandbox.mintlify.com) and was deliberately NOT
+    harvested.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: No AsyncAPI document and no public webhook/event catalog located.
+- id: mcp
+  name: Model Context Protocol
+  conforms: false
+  evidence: No MCP server published. mcp.1mind.com answers 200 only because of
+    the wildcard SPA; POST tools/list is not served.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json probed on
+    every host; real 404 everywhere except the wildcard SPA hosts, whose 200s
+    return HTML.
+certifications:
+- name: SOC 2 Type II
+  status: certified
+  source: security/1mind-trust-center.yml
+- name: ISO/IEC 27001
+  status: certified
+  source: security/1mind-trust-center.yml
+- name: ISO/IEC 42001
+  status: certified
+  scope: AI management system
+  source: security/1mind-trust-center.yml
+regulatory_alignment:
+- GDPR
+- UK GDPR
+- EU-U.S. Data Privacy Framework
+- UK-U.S. Data Bridge
+- Swiss-U.S. Data Privacy Framework
+- PIPEDA
+- LGPD
+- PDPA
+- FADP
+compliance_reference: ../security/1mind-trust-center.yml

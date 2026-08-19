@@ -1,0 +1,50 @@
+generated: '2026-08-13'
+method: probed
+source: unauthenticated registry metadata queries + https://github.com/1mindai
+name: 1mind Packages & SDKs
+package_count: 0
+packages: []
+official_sdk_count: 0
+note: >-
+  1mind ships no first-party client library in any public package registry, and
+  its GitHub organization contains exactly one public repository, which is not a
+  client library. No SDKs pointer is emitted in apis.yml, because there is no
+  SDK to point at.
+registries_probed:
+- registry: npm
+  method: search + exact lookup
+  queried:
+  - '1mind'
+  - '@1mind/sdk'
+  - onemind
+  version: null
+  result: 404 / zero results
+- registry: pypi
+  method: exact lookup
+  queried:
+  - 1mind
+  - onemind
+  - 1mind-sdk
+  version: null
+  result: 404
+- registry: github
+  org: https://github.com/1mindai
+  result: >-
+    One public repository — 1mindai/docs (MDX, last pushed 2026-08-12). It is an
+    UNMODIFIED Mintlify starter kit: README.md is "Mintlify Starter Kit", docs.json
+    names the site "Mint Starter Kit", and api-reference/openapi.json is the
+    Mintlify sample "OpenAPI Plant Store" spec with
+    servers[0].url http://sandbox.mintlify.com and paths /plants, /plants/{id}.
+    It describes no 1mind product and was deliberately NOT harvested (STEP 0c
+    ownership check). Its existence is a forward signal that 1mind is standing
+    up a Mintlify docs site, not evidence that one exists.
+cdn_distribution:
+  present: unknown
+  note: >-
+    1mind's Superhuman experience is embedded on customer sites via a launcher
+    served from https://launcher.1mind.com (named in the 1mind console's
+    Content-Security-Policy script-src, alongside launcher.dev.1mind.com and
+    launcher.stg.1mind.com). No versioned, publicly documented embed URL or
+    integration snippet was located, so the distribution is unpinned from a
+    consumer's point of view and no version can be recorded. See
+    components/ — not emitted, as the embed is undocumented.

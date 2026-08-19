@@ -1,30 +1,148 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: probed
-source: live HTTP probes of 1mind hosts
-note: No .well-known discovery documents are published. llms.txt IS published (saved
-  verbatim to llms/1mind-llms.txt) but lives at the site root, not under /.well-known.
+source: live HTTP probes of 1mind hosts (www.1mind.com, auth.1mind.com, app.1mind.com,
+  developer.1mind.com, docs.1mind.com, interaction.prd-b.1mind.com, status.1mind.com)
+note: >-
+  1mind DOES serve real /.well-known discovery documents — but on auth.1mind.com,
+  its Ory-hosted identity provider, not on the marketing or console hosts. The
+  OpenID Connect discovery document and the RFC 8414 OAuth 2.0 authorization
+  server metadata document are byte-identical and both returned HTTP 200 with
+  application/json. They are saved verbatim alongside this index and feed
+  authentication/, scopes/ and conformance/.
+  CAUTION — *.1mind.com IS A WILDCARD SPA. Every unmatched subdomain and every
+  unmatched path under it answers HTTP 200 with the same "Superhuman experience"
+  HTML shell (verified: the body of https://zzzznotreal.1mind.com/anything is
+  byte-identical, md5 a9d9693c7bcd2cd0de1059dd13bb045e, to the body of
+  https://developer.1mind.com/.well-known/agent-card.json). Every 200 recorded
+  below against developer./docs./app./mcp. is that shell, is NOT a document, and
+  is scored here as a MISS. Only the auth.1mind.com JSON responses are real.
 probes:
+- host: auth.1mind.com
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: application/json; charset=utf-8
+  file: 1mind-openid-configuration.json
+  real_document: true
+- host: auth.1mind.com
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: application/json; charset=utf-8
+  file: 1mind-oauth-authorization-server.json
+  real_document: true
+- host: auth.1mind.com
+  path: /.well-known/jwks.json
+  status: 200
+  content_type: application/json; charset=utf-8
+  file: null
+  real_document: true
+  note: RSA signing key set (RS256). Referenced by jwks_uri in the discovery
+    document; not mirrored here because the key set rotates.
+- host: auth.1mind.com
+  path: /.well-known/oauth-protected-resource
+  status: 404
+  file: null
+  real_document: false
+- host: auth.1mind.com
+  path: /.well-known/security.txt
+  status: 404
+  file: null
+  real_document: false
+- host: auth.1mind.com
+  path: /.well-known/agent-card.json
+  status: 404
+  file: null
+  real_document: false
 - host: www.1mind.com
   path: /.well-known/security.txt
   status: 404
   file: null
+  real_document: false
 - host: www.1mind.com
   path: /.well-known/openid-configuration
   status: 404
   file: null
+  real_document: false
 - host: www.1mind.com
   path: /.well-known/oauth-authorization-server
   status: 404
   file: null
+  real_document: false
 - host: www.1mind.com
   path: /.well-known/api-catalog
   status: 404
   file: null
+  real_document: false
 - host: www.1mind.com
   path: /.well-known/ai-plugin.json
   status: 404
   file: null
+  real_document: false
+- host: www.1mind.com
+  path: /.well-known/agent-card.json
+  status: 404
+  file: null
+  real_document: false
+- host: www.1mind.com
+  path: /.well-known/agent.json
+  status: 404
+  file: null
+  real_document: false
 - host: www.1mind.com
   path: /llms.txt
   status: 200
+  content_type: text/plain
   file: ../llms/1mind-llms.txt
+  real_document: true
+- host: developer.1mind.com
+  path: /.well-known/agent-card.json
+  status: 200
+  content_type: text/html; charset=UTF-8
+  file: null
+  real_document: false
+  note: Wildcard SPA shell, not a document. Rejected.
+- host: developer.1mind.com
+  path: /.well-known/agent.json
+  status: 200
+  content_type: text/html; charset=UTF-8
+  file: null
+  real_document: false
+  note: Wildcard SPA shell, not a document. Rejected.
+- host: docs.1mind.com
+  path: /.well-known/agent-card.json
+  status: 200
+  content_type: text/html; charset=UTF-8
+  file: null
+  real_document: false
+  note: Wildcard SPA shell, not a document. Rejected.
+- host: app.1mind.com
+  path: /.well-known/agent-card.json
+  status: 200
+  content_type: text/html; charset=UTF-8
+  file: null
+  real_document: false
+  note: Wildcard SPA shell, not a document. Rejected.
+- host: interaction.prd-b.1mind.com
+  path: /.well-known/agent-card.json
+  status: 404
+  file: null
+  real_document: false
+- host: interaction.prd-b.1mind.com
+  path: /.well-known/agent.json
+  status: 404
+  file: null
+  real_document: false
+- host: interaction.prd-b.1mind.com
+  path: /.well-known/oauth-protected-resource
+  status: 404
+  file: null
+  real_document: false
+- host: status.1mind.com
+  path: /.well-known/agent-card.json
+  status: 404
+  file: null
+  real_document: false
+summary:
+  paths_probed: 22
+  real_documents: 4
+  agent_card_found: false
+  security_txt_found: false

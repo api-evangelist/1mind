@@ -1,0 +1,102 @@
+generated: '2026-08-13'
+method: probed
+source: derived from observed live behaviour of https://auth.1mind.com and
+  https://interaction.prd-b.1mind.com, plus well-known/, authentication/,
+  errors/ and rate-limits/ in this repo
+name: 1mind API Conventions
+summary: >-
+  1mind publishes no API reference, so there is no documented convention set.
+  This file records only cross-cutting behaviours observed directly on live
+  1mind hosts, and marks everything else unknown. It is deliberately full of
+  "unknown" — that is the finding.
+authentication:
+  style: oauth2-bearer
+  authorization_server: https://auth.1mind.com
+  token_endpoint: https://auth.1mind.com/oauth2/token
+  challenge: 'RFC 6750 — WWW-Authenticate: Bearer error="request_unauthorized"'
+  reference: ../authentication/1mind-authentication.yml
+  documented: false
+idempotency:
+  supported: unknown
+  header: null
+  scope: null
+  retention: null
+  note: >-
+    No idempotency key header, no documented replay semantics, and no
+    idempotency reference of any kind was found on any 1mind surface. Recorded
+    as unknown, not false — the product API is undocumented, so absence of
+    evidence is not evidence of absence. No Idempotency pointer is emitted in
+    apis.yml, because emitting one would assert support 1mind has not shown.
+pagination:
+  style: unknown
+  params: []
+  response_fields: []
+  note: Not observable without a documented or reachable collection endpoint.
+versioning:
+  style: uri-path
+  evidence: >-
+    The 1mind console's Content-Security-Policy connect-src names
+    https://interaction.prd-b.1mind.com/v1 explicitly, and the interaction host
+    echoes "/v1/session" back in its 404 envelope — so a /v1 path prefix is in
+    use.
+  policy_published: false
+  media_type_versioning: false
+  header_versioning: false
+  reference: ../lifecycle/1mind-lifecycle.yml
+error_envelope:
+  format: custom
+  rfc9457: false
+  interaction_api_fields:
+  - status
+  - message
+  - description
+  - timestamp
+  - path
+  authorization_server_fields:
+  - error
+  - error_description
+  reference: ../errors/1mind-problem-types.yml
+request_tracing:
+  header: x-request-id
+  direction: response
+  echoed_in_body: false
+  example_observed: ldlgdj4ll57bkzmm745wtxrgg6
+  note: >-
+    The interaction API returns an x-request-id on every response including
+    errors. Whether a client-supplied x-request-id is honoured on the way in was
+    not tested and is not documented.
+rate_limit_signalling:
+  headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  - X-RateLimit-Reset
+  standard_named_fields: false
+  observed_on:
+  - auth.1mind.com
+  absent_on:
+  - interaction.prd-b.1mind.com
+  reference: ../rate-limits/1mind-rate-limits.yml
+expansion:
+  supported: unknown
+sparse_fieldsets:
+  supported: unknown
+metadata:
+  supported: unknown
+content_negotiation:
+  request: application/json
+  response: application/json
+  note: Both observed hosts speak JSON on the request and response side.
+transport_security:
+  https_only: true
+  hsts: true
+  hsts_max_age: 15552000
+  hsts_include_subdomains: true
+  note: >-
+    Observed on developer./docs./app./auth. hosts. The marketing host
+    www.1mind.com carries a longer 31536000 max-age (see
+    security/1mind-domain-security.yml).
+infrastructure_note: >-
+  *.1mind.com is a wildcard: every unmatched subdomain and path answers HTTP 200
+  with the same single-page-app shell. Any client that treats a 200 from a
+  1mind host as proof a resource exists WILL be wrong. Callers must check
+  Content-Type and parse the body. See well-known/1mind-well-known.yml.

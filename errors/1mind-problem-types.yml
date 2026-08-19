@@ -1,0 +1,88 @@
+generated: '2026-08-13'
+method: probed
+source: live responses observed from https://interaction.prd-b.1mind.com/ and
+  https://auth.1mind.com/ on 2026-08-13
+name: 1mind Error Semantics
+summary: >-
+  1mind publishes no error reference. This catalogue is built ONLY from error
+  envelopes observed on live 1mind-controlled hosts — it is a record of the
+  shapes the platform actually returns, not a reconstruction of a documented
+  catalogue. Two distinct envelopes are in use, because two distinct stacks are
+  in play: the application/interaction API, and the Ory-based authorization
+  server.
+format: custom
+rfc9457: false
+rfc9457_note: >-
+  Neither envelope is RFC 9457 Problem Details. The interaction API returns
+  Content-Type application/json (not application/problem+json) and uses
+  status/message/description/timestamp/path instead of
+  type/title/status/detail/instance.
+envelopes:
+- id: interaction-api
+  host: interaction.prd-b.1mind.com
+  content_type: application/json
+  media_type_is_problem_json: false
+  fields:
+  - name: status
+    type: integer
+    description: HTTP status code, repeated in the body.
+  - name: message
+    type: string
+    description: Short reason phrase.
+  - name: description
+    type: string
+    description: Human-readable explanation.
+  - name: timestamp
+    type: string
+    format: date-time
+    description: ISO 8601 UTC timestamp of the failure.
+  - name: path
+    type: string
+    description: Request path that produced the error.
+  example_observed: |
+    {"status":404,"message":"Not Found","description":"The server could not find the requested resource or is not willing to disclose that it exists","timestamp":"2026-08-13T20:25:50.132Z","path":"/v1/session"}
+  correlation_header: x-request-id
+  correlation_note: Every response carries an x-request-id (observed
+    ldlgdj4ll57bkzmm745wtxrgg6). It is NOT echoed into the error body, so a
+    caller must read the header to quote a trace id in a support ticket.
+- id: authorization-server
+  host: auth.1mind.com
+  content_type: application/json
+  media_type_is_problem_json: false
+  fields:
+  - name: error
+    type: string
+    description: OAuth 2.0 error code (RFC 6749 §5.2 style).
+  - name: error_description
+    type: string
+    description: Human-readable explanation.
+  example_observed: |
+    {"error":"request_unauthorized","error_description":"The request could not be authorized. Check that you provided valid credentials in the right format."}
+  challenge_header: WWW-Authenticate
+problem_types:
+- id: not-found
+  status: 404
+  envelope: interaction-api
+  message: Not Found
+  description: The server could not find the requested resource or is not willing
+    to disclose that it exists.
+  observed: true
+  remediation: >-
+    The wording is deliberately ambiguous between "absent" and "not disclosed",
+    so a 404 from this API cannot be read as proof a resource does not exist.
+- id: request_unauthorized
+  status: 401
+  envelope: authorization-server
+  message: request_unauthorized
+  description: The request could not be authorized. Check that you provided valid
+    credentials in the right format.
+  observed: true
+  remediation: Obtain a token from https://auth.1mind.com/oauth2/token and send
+    it as an RFC 6750 Bearer credential.
+coverage_note: >-
+  Only 404 (interaction API) and 401 (authorization server) were observable
+  anonymously. 4xx validation errors, 409 conflict semantics, 429 exhaustion
+  bodies and 5xx shapes are NOT recorded here because they were not observed and
+  are not documented. This file will stay thin until 1mind publishes an error
+  reference or an OpenAPI.
+error_count: 2

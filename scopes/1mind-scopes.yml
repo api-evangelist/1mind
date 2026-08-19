@@ -1,0 +1,36 @@
+generated: '2026-08-13'
+method: probed
+source: https://auth.1mind.com/.well-known/openid-configuration (HTTP 200) —
+  scopes_supported
+name: 1mind OAuth Scopes
+authorization_server: https://auth.1mind.com
+authentication_reference: ../authentication/1mind-authentication.yml
+docs: null
+docs_note: >-
+  No public scope/permission reference page exists. These are the only scopes
+  1mind's authorization server advertises anonymously.
+scope_count: 3
+scopes:
+- name: openid
+  description: OpenID Connect — request an ID token and identify the end user.
+    Required for any OIDC flow against this issuer.
+  standard: OpenID Connect Core 1.0
+  source: scopes_supported
+- name: offline_access
+  description: Request a refresh token so the client can obtain new access
+    tokens without user interaction.
+  standard: OpenID Connect Core 1.0
+  source: scopes_supported
+- name: offline
+  description: Legacy Ory Hydra alias for offline_access; grants a refresh
+    token.
+  standard: Ory Hydra (vendor alias)
+  source: scopes_supported
+note: >-
+  The advertised set is the Ory Hydra default and contains NO product scopes —
+  there is no 1mind-specific scope (no read/write, no resource-scoped
+  permission) published anywhere anonymously. Product scopes may exist and
+  simply not be advertised in scopes_supported, which the OAuth 2.0
+  authorization server metadata spec (RFC 8414 §2) permits as OPTIONAL. Nothing
+  is inferred or invented here: this file records exactly what the server
+  publishes.

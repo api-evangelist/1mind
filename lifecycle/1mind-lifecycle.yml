@@ -1,34 +1,99 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: searched
-source: https://status.1mind.com/ + https://www.1mind.com/llms.txt + https://www.1mind.com/announcements
+source: https://status.1mind.com/ + https://status.1mind.com/api/v2/summary.json
+  (HTTP 200) + https://www.1mind.com/llms.txt + https://www.1mind.com/announcements
+  + https://github.com/1mindai/docs
 name: 1mind API & Platform Lifecycle
 status_page:
   url: https://status.1mind.com/
   provider: incident.io
+  machine_readable: true
+  api:
+    summary: https://status.1mind.com/api/v2/summary.json
+    status: https://status.1mind.com/api/v2/status.json
+    format: statuspage-v2-compatible JSON
+    probed_status: 200
+  page_id: 01K2R1ATRMNGP9DGS6PH99P38H
+  current_indicator: none
+  current_description: All Systems Operational
   components:
   - name: US Region - 1mind application
+    description: 1mind applications (web)
     region: US
+    status: operational
+    created_at: '2025-08-15'
   - name: US Region - REST API
+    description: Public 1mind API
     region: US
+    status: operational
+    created_at: '2025-08-15'
+  note: >-
+    The status page is the ONLY first-party 1mind surface that confirms a public
+    REST API exists — component "US Region - REST API", described by 1mind as
+    "Public 1mind API", monitored since 2025-08-15. It publishes no base URL,
+    no reference and no spec.
 api:
   style: REST
-  note: A US-region REST API is monitored on the public status page; public reference
-    docs (docs.1mind.com / developer.1mind.com) are JS-rendered and not openly enumerable
-    as of this pass, and no OpenAPI was published at common well-known paths.
+  base_url: unknown
+  base_url_note: >-
+    No published base URL. The 1mind console's Content-Security-Policy names
+    https://interaction.prd-b.1mind.com and https://interaction.prd-b.1mind.com/v1
+    as connect-src origins, and that host is live and returns a structured JSON
+    error envelope — but it is an internal environment name (prd-b) that 1mind
+    documents nowhere, so it is recorded as an observation and NOT written into
+    apis.yml as a baseURL. Guessing a production base from an internal CSP entry
+    would be a fabrication.
+  documented: false
+  documentation_note: >-
+    developer.1mind.com and docs.1mind.com are NOT developer portals. Both
+    resolve to 35.190.54.50 and return the *.1mind.com wildcard SPA — the same
+    body, byte for byte, that a subdomain which does not exist returns
+    (zzzznotreal.1mind.com, md5 a9d9693c7bcd2cd0de1059dd13bb045e). docs.1mind.com
+    additionally serves <meta name="robots" content="noindex">. The prior round's
+    DeveloperPortal and Documentation pointers were removed from apis.yml on
+    2026-08-13 because they credited 1mind with portals it does not serve.
 versioning:
   policy: none-published
-  note: No public API versioning or deprecation policy located.
+  observed_scheme: uri-path
+  observed_evidence: /v1 prefix appears in the console CSP and in the
+    interaction API's own 404 envelope ("path":"/v1/session").
+  note: No public API versioning policy located.
 deprecation:
   policy: none-published
-  sunset_header: unknown
-  note: No RFC 8594 Sunset/Deprecation header policy documented.
-release_notes:
-  url: https://www.1mind.com/announcements
-  note: Company announcements page (launches, funding, partnerships); not a dated
-    per-release API changelog.
+  sunset_header: not-observed
+  deprecation_header: not-observed
+  note: >-
+    No RFC 8594 Sunset/Deprecation policy documented, and neither header was
+    observed on any probed response. No Deprecation pointer is emitted in
+    apis.yml.
+changelog:
+  api_changelog: none-published
+  release_notes_url: https://www.1mind.com/announcements
+  note: >-
+    The announcements page carries company news (launches, funding,
+    partnerships), not dated per-release API change entries. No ChangeLog
+    pointer is emitted, because a corporate press feed is not an API changelog.
+sla:
+  published: false
+  note: No public uptime SLA or support-response commitment located.
+forward_signals:
+- date: '2026-08-12'
+  signal: >-
+    1mind pushed to a public GitHub repository, 1mindai/docs, containing an
+    unmodified Mintlify starter kit (README "Mintlify Starter Kit", docs.json
+    name "Mint Starter Kit", api-reference/openapi.json still the sample
+    "OpenAPI Plant Store" spec pointing at http://sandbox.mintlify.com). This is
+    scaffolding, not documentation — nothing from it was harvested — but it
+    indicates a Mintlify-hosted developer portal is in preparation. Worth
+    re-probing on the next round.
 milestones:
+- date: '2025-08-15'
+  event: Status page components created, including "US Region - REST API".
 - date: '2025-11'
   event: Public launch with $40M total funding (Series A led by Battery Ventures).
 - date: '2025-11'
-  event: Named exclusive AI successor to Drift within the Clari + Salesloft Predictive
-    Revenue System.
+  event: Named exclusive AI successor to Drift within the Clari + Salesloft
+    Predictive Revenue System.
+- date: '2026-08-12'
+  event: Public 1mindai/docs repository created from the Mintlify starter
+    template.

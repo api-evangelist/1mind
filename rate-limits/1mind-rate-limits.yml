@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: probed
+source: response headers observed on https://auth.1mind.com/userinfo (HTTP 401)
+  on 2026-08-13
+name: 1mind Rate Limits
+docs: null
+docs_note: >-
+  1mind publishes no rate-limit documentation. Nothing below comes from a docs
+  page — every value was read off a live unauthenticated response.
+limit_count: 2
+limits:
+- scope: per-client (authorization server, burst window)
+  host: auth.1mind.com
+  endpoint: /userinfo
+  limit: 318
+  window: 1s
+  burst: null
+  header_value_observed: '318, 318;w=1, 3600;w=60'
+  note: >-
+    Expressed in the IETF RateLimit quota-policy notation carried on the legacy
+    X-RateLimit-Limit field. Reads as 318 requests per 1-second window under a
+    3600-per-60-second policy.
+- scope: per-client (authorization server, secondary bucket)
+  host: auth.1mind.com
+  endpoint: /userinfo
+  limit: 500
+  window: 1s
+  burst: null
+  header_value_observed: '500, 500;w=1'
+  note: A second X-RateLimit-Limit header is emitted on the same response,
+    describing a separate 500-per-second bucket.
+response_headers:
+- name: X-RateLimit-Limit
+  observed: true
+  example: '318, 318;w=1, 3600;w=60'
+  note: Emitted twice per response (two buckets).
+- name: X-RateLimit-Remaining
+  observed: true
+  example: '317'
+  note: Emitted twice per response, one value per bucket (317 and 499 observed).
+- name: X-RateLimit-Reset
+  observed: true
+  example: '1'
+  note: Seconds until the window resets.
+- name: Retry-After
+  observed: false
+  note: Not present on the 401 sampled; a 429 was not induced, so whether
+    Retry-After is emitted on exhaustion is unknown.
+- name: RateLimit
+  observed: false
+  note: The standard-named IETF field is not emitted; only the legacy X- prefixed
+    fields.
+exhaustion_status: 429
+exhaustion_status_note: Not observed. 429 is the assumed status because it is
+  the protocol default; no exhaustion response was induced and 1mind documents
+  none. Treat as unverified.
+hosts_without_signal:
+- host: interaction.prd-b.1mind.com
+  note: >-
+    No rate-limit headers on any observed response; only x-request-id and
+    server: Google Frontend. Whether this API is rate limited, and how a caller
+    would know, is not discoverable.
+- host: www.1mind.com
+  note: Marketing site; no rate-limit headers.
+caveat: >-
+  These limits govern 1mind's OAuth 2.0 authorization server, which is an
+  Ory-hosted deployment — they are the identity layer's limits, not the "US
+  Region - REST API" product limits. 1mind publishes no rate limits for its
+  product API at all.

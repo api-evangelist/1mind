@@ -1,0 +1,70 @@
+generated: '2026-08-13'
+method: probed
+source: live probes of 1mind hosts + web search for a published 1mind MCP server
+name: 1mind MCP Server
+status: none
+summary: >-
+  1mind publishes no Model Context Protocol server, hosted or local. This file
+  records the negative probe so a later round does not repeat it, and so the
+  mcp.1mind.com false positive is documented rather than rediscovered.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: probed
+tools: []
+tool_count: 0
+probes:
+- url: https://mcp.1mind.com/mcp
+  status: 200
+  result: false-positive
+  note: >-
+    NOT an MCP endpoint. *.1mind.com is a wildcard SPA — the response body is
+    byte-identical (md5 a9d9693c7bcd2cd0de1059dd13bb045e) to
+    https://zzzznotreal.1mind.com/anything, a subdomain that does not exist.
+    Content-Type text/html. Any pipeline that trusted this 200 would have
+    published a fabricated agent surface.
+- url: https://mcp.1mind.com/
+  status: 200
+  result: false-positive
+  note: Same wildcard SPA shell.
+- url: https://app.1mind.com/mcp
+  status: 200
+  result: false-positive
+  note: Same wildcard SPA shell.
+- url: https://www.1mind.com/mcp
+  status: 404
+  result: miss
+- url: https://interaction.prd-b.1mind.com/mcp
+  status: 404
+  result: miss
+- url: https://interaction.prd-b.1mind.com/v1/mcp
+  status: 404
+  result: miss
+- url: https://auth.1mind.com/.well-known/oauth-protected-resource
+  status: 404
+  result: miss
+  note: An MCP server fronted by this authorization server would normally
+    advertise a protected-resource metadata document; none is served.
+search:
+  npm:
+    queried: '1mind'
+    results: 0
+  pypi:
+    queried:
+    - 1mind
+    - onemind
+    - 1mind-sdk
+    results: 0
+  registry: No entry in any public MCP registry located.
+derivation_note: >-
+  No candidate tool list was derived, because deriving one requires an OpenAPI
+  to bind tools to and 1mind publishes none (see conformance/1mind-conformance.yml).
+  Nothing is invented here.
+crosswalk: null
+crosswalk_note: >-
+  No mcp/1mind-tool-crosswalk.yml is emitted. A crosswalk requires at least two
+  of {MCP tools, GraphQL fields, OpenAPI operations}; 1mind publishes none of
+  them.

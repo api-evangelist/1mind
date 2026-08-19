@@ -1,0 +1,32 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.1mind.com/sitemap.xml (HTTP 200) +
+  https://www.1mind.com/pricing (HTTP 404) + https://www.1mind.com/contact-us
+name: 1mind Plans & Pricing
+plan_count: 0
+plans: []
+pricing_model: contact-sales
+public_pricing: false
+note: >-
+  1mind publishes no pricing page and no plan tiers. https://www.1mind.com/pricing
+  returns HTTP 404, and the site's own sitemap.xml (117 URLs, fetched
+  2026-08-13) contains no pricing, plans or packages page. The commercial motion
+  is enterprise contact-sales: the site's calls to action are "Contact us"
+  (https://www.1mind.com/contact-us), "Schedule a time"
+  (https://www.1mind.com/schedule-a-time), and talking to Mindy, the company's
+  own AI Superhuman, which acts as the inbound qualification and demo path.
+  Two public ROI calculators exist — https://www.1mind.com/inbound-calculator and
+  https://www.1mind.com/plg-calculator — but they model customer pipeline value,
+  not 1mind's list price, and publish no rates.
+evidence:
+- url: https://www.1mind.com/pricing
+  status: 404
+- url: https://www.1mind.com/sitemap.xml
+  status: 200
+- url: https://www.1mind.com/contact-us
+  status: 200
+api_pricing:
+  published: false
+  note: No API metering, quota or usage-based pricing is published; the "US
+    Region - REST API" on the status page has no commercial terms attached
+    anywhere public.
