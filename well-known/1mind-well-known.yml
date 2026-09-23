@@ -1,21 +1,17 @@
 generated: '2026-08-13'
 method: probed
-source: live HTTP probes of 1mind hosts (www.1mind.com, auth.1mind.com, app.1mind.com,
-  developer.1mind.com, docs.1mind.com, interaction.prd-b.1mind.com, status.1mind.com)
-note: >-
-  1mind DOES serve real /.well-known discovery documents — but on auth.1mind.com,
-  its Ory-hosted identity provider, not on the marketing or console hosts. The
-  OpenID Connect discovery document and the RFC 8414 OAuth 2.0 authorization
-  server metadata document are byte-identical and both returned HTTP 200 with
-  application/json. They are saved verbatim alongside this index and feed
-  authentication/, scopes/ and conformance/.
-  CAUTION — *.1mind.com IS A WILDCARD SPA. Every unmatched subdomain and every
-  unmatched path under it answers HTTP 200 with the same "Superhuman experience"
-  HTML shell (verified: the body of https://zzzznotreal.1mind.com/anything is
-  byte-identical, md5 a9d9693c7bcd2cd0de1059dd13bb045e, to the body of
-  https://developer.1mind.com/.well-known/agent-card.json). Every 200 recorded
-  below against developer./docs./app./mcp. is that shell, is NOT a document, and
-  is scored here as a MISS. Only the auth.1mind.com JSON responses are real.
+source: live HTTP probes of 1mind hosts (www.1mind.com, auth.1mind.com, app.1mind.com, developer.1mind.com,
+  docs.1mind.com, interaction.prd-b.1mind.com, status.1mind.com)
+note: '1mind DOES serve real /.well-known discovery documents — but on auth.1mind.com, its Ory-hosted
+  identity provider, not on the marketing or console hosts. The OpenID Connect discovery document and
+  the RFC 8414 OAuth 2.0 authorization server metadata document are byte-identical and both returned HTTP
+  200 with application/json. They are saved verbatim alongside this index and feed authentication/, scopes/
+  and conformance/. CAUTION — *.1mind.com IS A WILDCARD SPA. Every unmatched subdomain and every unmatched
+  path under it answers HTTP 200 with the same "Superhuman experience" HTML shell (verified: the body
+  of https://zzzznotreal.1mind.com/anything is byte-identical, md5 a9d9693c7bcd2cd0de1059dd13bb045e, to
+  the body of https://developer.1mind.com/.well-known/agent-card.json). Every 200 recorded below against
+  developer./docs./app./mcp. is that shell, is NOT a document, and is scored here as a MISS. Only the
+  auth.1mind.com JSON responses are real.'
 probes:
 - host: auth.1mind.com
   path: /.well-known/openid-configuration
@@ -35,8 +31,8 @@ probes:
   content_type: application/json; charset=utf-8
   file: null
   real_document: true
-  note: RSA signing key set (RS256). Referenced by jwks_uri in the discovery
-    document; not mirrored here because the key set rotates.
+  note: RSA signing key set (RS256). Referenced by jwks_uri in the discovery document; not mirrored here
+    because the key set rotates.
 - host: auth.1mind.com
   path: /.well-known/oauth-protected-resource
   status: 404
@@ -146,3 +142,21 @@ summary:
   real_documents: 4
   agent_card_found: false
   security_txt_found: false
+hosts:
+- host: ''
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: 1mind-openid-configuration.json
+    content_type: application/json; charset=utf-8
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: 1mind-oauth-authorization-server.json
+    content_type: application/json; charset=utf-8
+x-shape-fix:
+  converted: '2026-08-20'
+  from: probes
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent. Promoted ONLY the 2xx rows out of
+    the probe log; non-2xx probes are real negative results and were left in place, not converted into
+    documents.
