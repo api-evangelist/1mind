@@ -64,6 +64,107 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-1mind is a company surfaced as a portfolio company of wing-venture-capital and added to the API Evangelist network as a stub for enrichment. Sector: ai. This profile is a lead awaiting the enrichment pipeline.
+1mind is an AI-Led Growth (AILG) platform that deploys multimodal AI "Superhumans" — combining a face, a voice, and a go-to-market brain — for enterprise B2B revenue teams. Its Superhumans qualify leads, deliver demos, handle objections, book meetings, and onboard customers 24/7 across websites, in-product surfaces, live video calls, and deal rooms. Founded by Amanda Kahlow (former founder and CEO of 6sense), 1mind publicly launched in November 2025 with $40M in total funding (Series A led by Battery Ventures, with Wing Venture Capital, Primary Ventures, Operator Collective, Harmonic Growth Partners, and Success Venture Partners participating). Customers include HubSpot, Boston Dynamics, Seismic, New Relic, ZoomInfo, Coupa, Nutanix, and Tealium. The platform is the exclusive AI successor to Drift within the Clari + Salesloft Predictive Revenue System and operates a US-region REST API, backed by SOC 2 Type II, ISO 27001, and ISO 42001 certifications.
 
-Backed by: wing-venture-capital — https://www.1mind.com/
+**Areas:** Company · Artificial Intelligence · AI Agents · Sales · Go-To-Market · Conversational AI · Sales Enablement · Revenue Operations
+
+## 1mind on APIs.io
+
+Everything profiled for 1mind is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/1mind/](https://apis.io/providers/1mind/)** — or go straight to one of the APIs or properties below.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [1Mind Authentication](https://apis.io/security/1mind/1mind-authentication/)
+- [1Mind Domain Security](https://apis.io/security/1mind/1mind-domain-security/)
+- [1Mind Trust Center](https://apis.io/security/1mind/1mind-trust-center/)
+- [1Mind Vulnerability Disclosure](https://apis.io/security/1mind/1mind-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [1Mind Scopes](https://apis.io/scopes/1mind/1mind-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [1Mind Plans Pricing](https://apis.io/plans/1mind/1mind-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [1Mind Rate Limits](https://apis.io/rate-limits/1mind/1mind-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.1mind.com/)
+- [Sign up](https://www.1mind.com/contact-us)
+- [Support](https://www.1mind.com/support)
+- [Blog](https://www.1mind.com/blogs)
+- [Terms of service](https://www.1mind.com/terms-of-use)
+- [Privacy policy](https://www.1mind.com/privacy-policy)
+- [GitHub](https://github.com/1mindai)
+- [Status](https://status.1mind.com/)
+
+## API Evangelist rating
+
+**Kin Score 31.6** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 55.4 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 50.0 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 50.0 |
+
+**Agent readiness 16.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 41.8** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/1mind/](https://apis.io/providers/1mind/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for 1mind: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/1mind/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
